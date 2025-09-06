@@ -34,8 +34,10 @@ export default function Navbar() {
                 <div className="flex items-center gap-4 ">
                     <ThemeToggle />
                     <SignedOut>
-                        <SignInButton mode="modal">
-                            <Button>Sign In</Button>
+                        <SignInButton>
+                            <Button asChild>
+                                <Link href="/sign-in">Sign In </Link>
+                                </Button>
                         </SignInButton>
                     </SignedOut>
                 </div>
