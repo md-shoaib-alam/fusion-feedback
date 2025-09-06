@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes'
 export default function Page() {
     const { theme, setTheme } = useTheme()
     return (
-        <div className='flex mt-20 justify-center'> <SignIn appearance={{
+        <div className='flex md:mt-20 justify-center'> <SignIn appearance={{
             baseTheme: theme === "light" ? dark : undefined,
         }} /></div>
     )
