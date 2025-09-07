@@ -9,7 +9,7 @@ export default function Footer() {
                     <div className="flex items-center gap-3 text-sm text-muted-foreground">
                         <span> Made With </span>
                         <Heart className="text-red-500 fill-red-500 h-4  w-4" />
-                        <span>By the Shoaib Alam </span>
+                        <span>By  Shoaib Alam </span>
                     </div>
                     <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <span>©️ {currentYear} fusion feedback all rights reserved.</span>

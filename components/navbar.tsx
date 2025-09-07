@@ -1,9 +1,9 @@
 "use client";
 
-import { Map, MessagesSquare, Sparkle } from "lucide-react";
+import { Map, MessageSquare, Sparkle } from "lucide-react";
 import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
-import { SignedOut, SignInButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
@@ -26,7 +26,7 @@ export default function Navbar() {
                         Roadmap
                     </Link>
                     <Link href="/feedback" className="text-sm hover:text-primary flex  items-center gap-1">
-                        <MessagesSquare className="h-4 w-4 " />
+                        <MessageSquare className="h-4 w-4 " />
                         Feedback
                     </Link>
                 </div>
@@ -40,6 +40,10 @@ export default function Navbar() {
                                 </Button>
                         </SignInButton>
                     </SignedOut>
+                    {/* sign in user profile button */}
+                    <SignedIn>
+                        <UserButton/>
+                    </SignedIn>
                 </div>
             </div>
         </nav>
