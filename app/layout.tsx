@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/ui/theme-provider";
+import syncCurrentUser from "@/lib/sync-user";
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
   title: "Feedback Fusion - Public Roadmap ",
   description: "a Platform for user to suggest and Up vote on feature    ",
 };
-export default function RootLayout({
+export default  async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+await syncCurrentUser()
+
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
