@@ -1,0 +1,58 @@
+import prisma from "@/lib/prisma";
+import syncCurrentUser from "@/lib/sync-user";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(request: NextRequest) {
+  try {
+    const dbUser = await syncCurrentUser();
+    if (!dbUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const { postId } = await request.json();
+    if (!postId) {
+      return NextResponse.json(
+        {
+          error: "post id is required",
+        },
+        { status: 400 },
+      );
+    }
+
+    // check if vote already exists
+    const existingVote = await prisma.vote.findUnique({
+      where: {
+        userId_postId: {
+          userId: dbUser.id,
+          postId,
+        },
+      },
+    });
+
+    if (existingVote) {
+      // remove vote toggle
+      await prisma.vote.delete({
+        where: {
+          id: existingVote.id,
+        },
+      });
+      return NextResponse.json({ voted: false });
+    } else {
+      // add vote toggle
+      await prisma.vote.create({
+        data: {
+          userId: dbUser.id,
+          postId,
+        },
+      });
+      return NextResponse.json({ voted: true });
+    }
+  } catch (error) {
+    console.error("error toggling Vote", error);
+    return NextResponse.json(
+      {
+        error: "internal server error",
+      },
+      { status: 500 },
+    );
+  }
+}
