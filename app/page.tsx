@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GradientHeader } from "@/components/ui/gradient-header";
+import { GradientHeader } from "@/components/gradient-header";
 import { ArrowRight, BarChart, Map, MessageSquare, Users, Zap } from "lucide-react";
 import Link from "next/link";
 
