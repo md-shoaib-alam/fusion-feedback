@@ -84,7 +84,7 @@ export default function NewFeedbackPage() {
                 <CardHeader>
                     <CardTitle> New Feedback </CardTitle>
                     <CardDescription>
-                        Share your idea with the community. Be specific about what you'd like to see.
+                        Share your idea with the community. Be specific about what you&apos;d like to see.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
