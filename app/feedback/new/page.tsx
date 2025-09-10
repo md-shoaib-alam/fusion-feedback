@@ -1,7 +1,13 @@
-"use client"
+"use client";
 import { CATEGORY_TYPE } from "@/app/data/category-data";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,65 +17,64 @@ import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 
-
 // server action function
 async function submitFeedback(
     prevstate: { success: boolean; error: string },
-    formData: FormData
+    formData: FormData,
 ) {
     // show loading toast
-    const loadingToast = toast.loading("Submitting your feedback... ")
+    const loadingToast = toast.loading("Submitting your feedback... ");
     try {
         const response = await fetch("/api/feedback", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 title: formData.get("title"),
                 description: formData.get("description"),
-                category: formData.get("category")
-            })
-        })
+                category: formData.get("category"),
+            }),
+        });
         if (!response.ok) {
-            throw new Error("Failed to create Post ")
+            throw new Error("Failed to create Post ");
         }
         // Dismiss loading toast and show success
-        toast.dismiss(loadingToast)
-        toast.success("your feedback has submitted successfully")
+        toast.dismiss(loadingToast);
+        toast.success("your feedback has submitted successfully");
         return {
             success: true,
-            error: ""
-        }
+            error: "",
+        };
     } catch (error) {
-        console.error("Something went wrong. Please try again ", error)
+        console.error("Something went wrong. Please try again ", error);
         // Dismiss loading toast and show success
-        toast.dismiss(loadingToast)
-        toast.error("Something get wrong")
+        toast.dismiss(loadingToast);
+        toast.error("Something get wrong");
 
         return {
             success: false,
-            error: "Failed to submit feedback"
-        }
+            error: "Failed to submit feedback",
+        };
     }
 }
 export default function NewFeedbackPage() {
-    const router = useRouter()
+    const router = useRouter();
     const [state, action, isPending] = useActionState(submitFeedback, {
         success: false,
-        error: ""
-    })
+        error: "",
+    });
 
     // Redirect on success
     useEffect(() => {
         if (state.success) {
             const timer = setTimeout(() => {
-                router.push("/feedback")
-                router.refresh()
-            }, 1500) //wait for toast to be visible 
-            return (() => clearTimeout(timer))
+                router.push("/feedback");
+                router.refresh();
+            }, 1500); //wait for toast to be visible
+            return () => clearTimeout(timer);
         }
-    }, [state.success,router])
+    }, [state.success, router]);
     return (
         <div className="max-w-2xl mx-auto space-y-6">
             <div className="flex items-center gap-2">
@@ -84,7 +89,8 @@ export default function NewFeedbackPage() {
                 <CardHeader>
                     <CardTitle> New Feedback </CardTitle>
                     <CardDescription>
-                        Share your idea with the community. Be specific about what you&apos;d like to see.
+                        Share your idea with the community. Be specific about what
+                        you&apos;d like to see.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -95,7 +101,8 @@ export default function NewFeedbackPage() {
                                 id="title"
                                 name="title"
                                 placeholder="what would you like to see ?"
-                                required />
+                                required
+                            />
                         </div>
                         <div className=" space-y-2">
                             <Label htmlFor="title">Category</Label>
@@ -103,7 +110,8 @@ export default function NewFeedbackPage() {
                                 id="category"
                                 name="category"
                                 className="w-full px-3 py-2 rounded-md bg-background"
-                                defaultValue={CATEGORY_TYPE[0]}>
+                                defaultValue={CATEGORY_TYPE[0]}
+                            >
                                 {CATEGORY_TYPE.map((category) => (
                                     <option key={category} value={category}>
                                         {""}
@@ -116,8 +124,9 @@ export default function NewFeedbackPage() {
                                 <Textarea
                                     id="description"
                                     name="description"
-                                    placeholder="Describe your idea in  deatils..."
-                                    required />
+                                    placeholder="Describe your idea in  details..."
+                                    required
+                                />
                             </div>
                             <div className="flex gap-4  m-4">
                                 <Button type="submit" disabled={isPending}>
@@ -130,8 +139,7 @@ export default function NewFeedbackPage() {
                         </div>
                     </form>
                 </CardContent>
-
             </Card>
         </div>
-    )
+    );
 }

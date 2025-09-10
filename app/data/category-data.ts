@@ -1,14 +1,19 @@
 import { Bug, Lightbulb, Palette, Sparkle, Wrench } from "lucide-react";
 
-export const CATEGORY_TYPE = ["Feature", "Improvement", "Bug", "Design", "Other"]
+export const CATEGORY_TYPE = [
+  "Feature",
+  "Improvement",
+  "Bug",
+  "Design",
+  "Other",
+];
 
 export const CATEGORIES = {
   Feature: {
     bg: "bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30",
     text: "text-blue-700 dark:text-blue-300",
     border: "border-blue-500 dark:border-blue-500",
-    light:
-      "bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300",
+    light: "bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300",
     icon: Sparkle,
   },
   Improvement: {
@@ -29,7 +34,8 @@ export const CATEGORIES = {
     bg: "bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30",
     text: "text-purple-700 dark:text-purple-300",
     border: "border-purple-500 dark:border-purple-500",
-    light: "bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300",
+    light:
+      "bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300",
     icon: Palette,
   },
   Other: {
@@ -45,7 +51,7 @@ export type CategoryType = keyof typeof CATEGORIES;
 
 export function getCategoryDesign(
   category: string,
-): (typeof CATEGORIES)[keyof typeof CATEGORIES]{
-  const key = category as CategoryType
-  return CATEGORIES[key] || CATEGORIES.Other
+): (typeof CATEGORIES)[keyof typeof CATEGORIES] {
+  const key = category as CategoryType;
+  return CATEGORIES[key] || CATEGORIES.Other;
 }
